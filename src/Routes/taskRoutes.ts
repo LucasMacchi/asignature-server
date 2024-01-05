@@ -7,6 +7,7 @@ import deleteTask from "./Controllers/deleteTask";
 import doneTask from "./Controllers/doneTask";
 import unDoneTask from "./Controllers/unDoneTask";
 import expireTask from "./Controllers/expireTask";
+import addTask from "./Controllers/addTask";
 
 //Utils imports
 import test_route from "./Utils/test_route";
@@ -36,4 +37,7 @@ task_router.patch('/undone/:id', (req,res) => {
 task_router.patch('/expire/:id', (req, res) => {
     const id = req.params.id
     res.send(expireTask(id))
+})
+task_router.post('/add', (req, _res) => {
+    addTask(req.body)
 })
