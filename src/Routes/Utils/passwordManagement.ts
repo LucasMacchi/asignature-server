@@ -10,4 +10,11 @@ export const hashPassword = async (passwordToHash: string) => {
     return hashedPassword
 }
 
+export const checkPassword =async (plainPassword:string, hashedPassword: string | null | undefined) => {
+    if(!hashedPassword) return false
+    const result = await bcrypt.compare(plainPassword, hashedPassword)
+    return result
+
+}
+
 

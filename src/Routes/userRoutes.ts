@@ -16,7 +16,7 @@ user_router.get('/ping', (_req, res) => res.send(test_route('User')))
 
 user_router.post('/login', async (req, res) => {
     const {email, password} = req.body
-    res.send(login(email,password))
+    res.send(await login(email,password))
 })
 
 user_router.post('/register', async (req, res) => {
