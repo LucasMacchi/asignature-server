@@ -2,6 +2,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import * as dotenv from "dotenv"
 import test_route from './Routes/Utils/test_route';
 import { router } from './Routes';
@@ -14,6 +15,7 @@ const server = express();
 //Middlewares
 server.use(morgan("dev"));
 server.use(bodyParser.json())
+server.use(cookieParser())
 
 //Ping
 server.get("/ping",(_req, res) => {
