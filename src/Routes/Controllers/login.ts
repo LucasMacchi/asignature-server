@@ -1,6 +1,6 @@
 import { checkPassword } from "../Utils/passwordManagement"
 import User from "../../Database/User"
-import { IUser } from "../../Interfaces/Interfaces"
+import { IUser } from "../../Interface/interfaces"
 
 export default async function login(email: string, password: string): Promise<IUser> {
     console.log("EMAIL: ",email)

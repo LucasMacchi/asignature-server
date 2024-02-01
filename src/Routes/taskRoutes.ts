@@ -19,25 +19,27 @@ task_router.get('/error', (_req, res) => res.send(errorTest()))
 
 
 //Routes
-task_router.get('/all', (_req, res) => {
-    res.json(allTasks())
-})
-task_router.delete('/delete/:id', (req, res) => {
+task_router.get('/all/:id', async (req, res) => {
     const id = req.params.id
-    res.send(deleteTask(id))
+    res.json(await allTasks(id))
 })
-task_router.patch('/done/:id', (req, res) => {
-    const id = req.params.id
-    res.send(doneTask(id))
+task_router.delete('/delete', async (req, res) => {
+    const {task_id,user_id} = req.body
+    res.send(await deleteTask(task_id,user_id))
 })
-task_router.patch('/undone/:id', (req,res) => {
-    const id = req.params.id
-    res.send(unDoneTask(id))
+task_router.patch('/done', async (req, res) => {
+    const {task_id,user_id} = req.body
+    res.send(await doneTask(task_id, user_id))
 })
-task_router.patch('/expire/:id', (req, res) => {
-    const id = req.params.id
-    res.send(expireTask(id))
+task_router.patch('/undone', async (req,res) => {
+    const {task_id,user_id} = req.body
+    res.send(await unDoneTask(task_id, user_id))
 })
-task_router.post('/add', (req, _res) => {
-    addTask(req.body)
+task_router.patch('/expire', async (req, res) => {
+    const {task_id,user_id} = req.body
+    res.send(await expireTask(task_id, user_id))
+})
+task_router.post('/add', async (req, res) => {
+    const {task, id} = req.body
+    res.send(await addTask(task, id))
 })

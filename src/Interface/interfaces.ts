@@ -13,5 +13,10 @@ export interface IAsignature{
     isDone: boolean,
     isExpire: boolean,
     day: number,
-    isCheck: boolean
+    isCheck: boolean,
+}
+export interface IUser {
+    username: string,
+    email: string,
+    createdAt: Date
 }
