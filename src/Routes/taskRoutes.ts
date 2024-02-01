@@ -20,8 +20,8 @@ task_router.get('/error', (_req, res) => res.send(errorTest()))
 
 //Routes
 task_router.get('/all/:id', async (req, res) => {
-    const id = req.params.id
-    res.json(await allTasks(id))
+    const user_id = req.params.id
+    res.json(await allTasks(user_id))
 })
 task_router.delete('/delete', async (req, res) => {
     const {task_id,user_id} = req.body
