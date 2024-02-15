@@ -40,6 +40,6 @@ task_router.patch('/expire', async (req, res) => {
     res.send(await expireTask(task_id, user_id))
 })
 task_router.post('/add', async (req, res) => {
-    const {task, id} = req.body
-    res.send(await addTask(task, id))
+    const task = req.body
+    res.send(await addTask(task))
 })

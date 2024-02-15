@@ -14,9 +14,22 @@ export interface IAsignature{
     isExpire: boolean,
     day: number,
     isCheck: boolean,
+    id: string
 }
 export interface IUser {
     username: string,
     email: string,
-    createdAt: Date
+    createdAt: Date,
+    user_id: string
+}
+export interface IAsignature_add{
+    title: string,
+    description: string,
+    hour: number,
+    minutes: number,
+    isDone: boolean,
+    isExpire: boolean,
+    day: number,
+    isCheck: boolean,
+    id: string
 }

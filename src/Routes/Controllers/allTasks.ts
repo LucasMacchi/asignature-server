@@ -15,8 +15,21 @@ export default async function allTasks(user_id: string){
         }
         else{
             const user = await User.findById(user_id)
-            if(user){
-                const tasks = user.UserAsignatures
+            if(user?.UserAsignatures){
+                const tasks = user.UserAsignatures.map((task) => {
+                    const t = {
+                        title: task.title,
+                        description: task.description,
+                        hour: task.hour,
+                        minutes: task.minutes,
+                        isDone: task.isDone,
+                        isExpire: task.isExpire,
+                        day: task.day,
+                        isCheck: task.isCheck,
+                        id: task.id
+                    }
+                    return t
+                })
                 return tasks
             }
             else return false

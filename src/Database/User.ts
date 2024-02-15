@@ -28,7 +28,11 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: () => Date.now(),
     },
-    UserAsignatures: [AsignatureSchema]
+    UserAsignatures: [AsignatureSchema],
+    isActivated: {
+        type: Boolean,
+        default: false
+    }
 })
 
 export default mongoose.model("User", userSchema)

@@ -6,6 +6,7 @@ export const user_router = Router()
 import login from "./Controllers/login";
 import Register from "./Controllers/registerUser";
 import getUser from "./Controllers/getUser";
+import Activate from "./Controllers/actiavateUser";
 
 //Utils imports
 import test_route from "./Utils/test_route";
@@ -29,5 +30,12 @@ user_router.post('/register', async (req, res) => {
 user_router.get('/:email', async (req, res) => {
     const email = req.params.email
     const response = await getUser(email)
+    res.send(response)
+})
+//PATCH Activate user
+user_router.patch("/activate/:code/:user", async (req, res) => {
+    const code = req.params.code
+    const user_id = req.params.user
+    const response = await Activate(code, user_id)
     res.send(response)
 })

@@ -1,11 +1,11 @@
-import { IAsignature } from "../../Interface/interfaces"
+import { IAsignature_add } from "../../Interface/interfaces"
 import Asignature from "../../Database/Asignature"
 import User from "../../Database/User"
 
-export default async function addTask(task: IAsignature, user_id: string) {
+export default async function addTask(task: IAsignature_add) {
     console.log("TASK CREATED: ",task)
     try {
-        const user = await User.findById(user_id)
+        const user = await User.findById(task.id)
         if(user){
             const asignature = await Asignature.create({
                 title: task.title,
