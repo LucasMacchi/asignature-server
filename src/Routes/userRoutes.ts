@@ -32,9 +32,9 @@ user_router.get('/:email', async (req, res) => {
     const response = await getUser(email)
     res.send(response)
 })
-//PATCH Activate user
-user_router.patch("/activate/:code/:user", async (req, res) => {
-    const code = req.params.code
+//GET Activate user
+user_router.get("/activate/:user/:token", async (req, res) => {
+    const code = req.params.token
     const user_id = req.params.user
     const response = await Activate(code, user_id)
     res.send(response)

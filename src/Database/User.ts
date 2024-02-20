@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { AsignatureSchema } from "./Asignature";
-
 //User schema
 
 const userSchema = new mongoose.Schema({
