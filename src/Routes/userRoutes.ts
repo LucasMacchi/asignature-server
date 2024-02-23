@@ -7,6 +7,8 @@ import login from "./Controllers/login";
 import Register from "./Controllers/registerUser";
 import getUser from "./Controllers/getUser";
 import Activate from "./Controllers/actiavateUser";
+import PasswordToken from "./Controllers/passwordToken";
+import PasswordChange from "./Controllers/passwordChange";
 
 //Utils imports
 import test_route from "./Utils/test_route";
@@ -18,24 +20,37 @@ user_router.get('/ping', (_req, res) => res.send(test_route('User')))
 //Login Route
 user_router.post('/login', async (req, res) => {
     const {email, password} = req.body
-    res.send(await login(email,password))
+    const response = await login(email,password)
+    response.user_id ? res.send(response) : res.status(401).send(response)
 })
 //Register Route
 user_router.post('/register', async (req, res) => {
     const {email, username, password} = req.body
-    const val = await Register(email, username, password)
-    res.send(val)
+    const response = await Register(email, username, password)
+    response ? res.send(response) : res.status(400).send(response)
 })
 //GET USER Route
 user_router.get('/:email', async (req, res) => {
     const email = req.params.email
     const response = await getUser(email)
-    res.send(response)
+    response ? res.send(response) : res.status(400).send(response)
 })
 //GET Activate user
 user_router.get("/activate/:user/:token", async (req, res) => {
     const code = req.params.token
     const user_id = req.params.user
     const response = await Activate(code, user_id)
-    res.send(response)
+    response ? res.send(response) : res.status(401).send(response)
+})
+//POST password change validation
+user_router.post("/password/token/:user_id", async (req, res) => {
+    const user_id = req.params.user_id
+    const response = await PasswordToken(user_id)
+    response ? res.send(response) : res.status(401).send(response)
+})
+//PATCH password change
+user_router.patch("/password", async (req, res) => {
+    const {user_id, token_id, new_password} = req.body
+    const response = await PasswordChange(user_id, token_id, new_password)
+    response ? res.send(response) : res.status(401).send(response)
 })

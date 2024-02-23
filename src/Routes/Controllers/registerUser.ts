@@ -16,7 +16,6 @@ export default async function Register (email: string, username: string, passwor
             type: "validation"
         })
         await accountCreated(email, user.id, token.id)
-        console.log(user)
         return true
     } catch (error) {
         console.log(error)

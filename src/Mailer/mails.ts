@@ -5,6 +5,8 @@ import fs from "fs"
 import * as dotenv from "dotenv"
 dotenv.config()
 
+const server_url = process.env.SERVER_URL ? process.env.SERVER_URL : "invalid server url"
+const client_url = process.env.CLIENT_URL ? process.env.CLIENT_URL : "invalid client url"
 
 
 export async function emailTest(email: string) {
@@ -17,7 +19,6 @@ export async function emailTest(email: string) {
 }
 
 export async function accountCreated(email: string, user_id: string, token_id: string) {
-    const server_url = process.env.SERVER_URL ? process.env.SERVER_URL : "invalid server url"
     const url = server_url+"/user/activate/"+user_id+"/"+token_id
 
     const filePath = path.join(__dirname,"..", "..", 'html', 'accountCreation.html');
@@ -31,4 +32,20 @@ export async function accountCreated(email: string, user_id: string, token_id: s
         text:"",
         html: accountCreated_html
     })
+}
+
+export async function passwordMail(user_email:string, user_id: string, token_id: string) {
+    const url = client_url+"/prestoration/"+user_id+"/"+token_id
+    const filePath = path.join(__dirname,"..", "..", 'html', 'passwordRestoration.html');
+    let passres_html = fs.readFileSync(filePath, "utf-8")
+    passres_html = passres_html.replace("URL_LINK", url)
+
+    await mail_transponder.sendMail({
+        from:mail_config.auth.user,
+        to: user_email,
+        subject: "Password Change Request",
+        text:"",
+        html: passres_html
+    })
+
 }

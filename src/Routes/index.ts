@@ -5,7 +5,7 @@ import cors from 'cors'
 //Router declaration
 import { NextFunction, Router, Request, Response } from "express";
 export const router = Router()
-import { accountCreated, emailTest } from "../Mailer/mails";
+import { accountCreated } from "../Mailer/mails";
 
 //other middlewares
 router.use(cors())

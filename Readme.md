@@ -7,6 +7,9 @@ User Routes
 - POST /user/login --> Route for login --> body = email | password
 - POST /user/register --> Route for signing up --> body: email | password | username
 - GET /user/:email --> Route to get user info --> parameter: email
+- GET /user/activate/:user/:token --> Route to activate user --> parameters: user | token
+- POST /user/token/:user_id --> Route will create de token for the password restoration
+- PATCH /user/password --> Route to change password --> body: user_id | token_id | new_password
 
 Task Routes
 
