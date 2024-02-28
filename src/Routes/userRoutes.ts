@@ -9,6 +9,7 @@ import getUser from "./Controllers/getUser";
 import Activate from "./Controllers/actiavateUser";
 import PasswordToken from "./Controllers/passwordToken";
 import PasswordChange from "./Controllers/passwordChange";
+import ChangeUsername from "./Controllers/changeUsername";
 
 //Utils imports
 import test_route from "./Utils/test_route";
@@ -42,15 +43,28 @@ user_router.get("/activate/:user/:token", async (req, res) => {
     const response = await Activate(code, user_id)
     response ? res.send(response) : res.status(401).send(response)
 })
-//POST password change validation
+//POST password change validation using the user email
+user_router.post("/email/password/:email", async (req, res) => {
+    const email = req.params.email
+    const response = await PasswordToken(email, true)
+    response ? res.send(response) : res.status(401).send(response)
+})
+//POST password change validation using the user id
 user_router.post("/password/token/:user_id", async (req, res) => {
     const user_id = req.params.user_id
-    const response = await PasswordToken(user_id)
+    const response = await PasswordToken(user_id, false)
     response ? res.send(response) : res.status(401).send(response)
 })
 //PATCH password change
 user_router.patch("/password", async (req, res) => {
     const {user_id, token_id, new_password} = req.body
     const response = await PasswordChange(user_id, token_id, new_password)
+    response ? res.send(response) : res.status(401).send(response)
+})
+//PATCH username change
+user_router.patch("/username/:user_id/:new_username",async (req, res) => {
+    const user_id = req.params.user_id
+    const new_username = req.params.new_username
+    const response = await ChangeUsername(user_id, new_username)
     response ? res.send(response) : res.status(401).send(response)
 })

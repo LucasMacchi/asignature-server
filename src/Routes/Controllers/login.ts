@@ -1,6 +1,7 @@
 import { checkPassword } from "../Utils/passwordManagement"
 import User from "../../Database/User"
 import { IUser } from "../../Interface/interfaces"
+import DeleteTokens from "../Utils/deleteTokens"
 
 export default async function login(email: string, password: string): Promise<IUser> {
     console.log("EMAIL: ",email)
@@ -19,6 +20,7 @@ export default async function login(email: string, password: string): Promise<IU
             user.username = userToLog.username
             user.createdAt = userToLog.createdAt
             user.user_id = userToLog.id
+            await DeleteTokens(user.user_id)
             return user
         }
         else{
