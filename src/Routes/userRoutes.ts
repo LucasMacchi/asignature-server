@@ -10,7 +10,8 @@ import Activate from "./Controllers/actiavateUser";
 import PasswordToken from "./Controllers/passwordToken";
 import PasswordChange from "./Controllers/passwordChange";
 import ChangeUsername from "./Controllers/changeUsername";
-
+import sessionVerification from "./Controllers/sessionVerification";
+import JWTAuth from "./Controllers/jwtAuthVerification";
 //Utils imports
 import test_route from "./Utils/test_route";
 
@@ -30,8 +31,14 @@ user_router.post('/register', async (req, res) => {
     const response = await Register(email, username, password)
     response ? res.send(response) : res.status(400).send(response)
 })
+//GET Verify JWT
+user_router.get('/session/:jwt', async (req, res) => {
+    const token = req.params.jwt
+    const response = await sessionVerification(token)
+    response ? res.send(response) : res.status(400).send(response)
+})
 //GET USER Route
-user_router.get('/:email', async (req, res) => {
+user_router.get('/:email',JWTAuth, async (req, res) => {
     const email = req.params.email
     const response = await getUser(email)
     response ? res.send(response) : res.status(400).send(response)
@@ -50,7 +57,7 @@ user_router.post("/email/password/:email", async (req, res) => {
     response ? res.send(response) : res.status(401).send(response)
 })
 //POST password change validation using the user id
-user_router.post("/password/token/:user_id", async (req, res) => {
+user_router.post("/password/token/:user_id",JWTAuth, async (req, res) => {
     const user_id = req.params.user_id
     const response = await PasswordToken(user_id, false)
     response ? res.send(response) : res.status(401).send(response)
@@ -62,7 +69,7 @@ user_router.patch("/password", async (req, res) => {
     response ? res.send(response) : res.status(401).send(response)
 })
 //PATCH username change
-user_router.patch("/username/:user_id/:new_username",async (req, res) => {
+user_router.patch("/username/:user_id/:new_username", JWTAuth, async (req, res) => {
     const user_id = req.params.user_id
     const new_username = req.params.new_username
     const response = await ChangeUsername(user_id, new_username)

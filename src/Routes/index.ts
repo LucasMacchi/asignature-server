@@ -5,18 +5,16 @@ import cors from 'cors'
 //Router declaration
 import { NextFunction, Router, Request, Response } from "express";
 export const router = Router()
-import { accountCreated } from "../Mailer/mails";
 
 //other middlewares
-router.use(cors())
+router.use(cors({
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PATCH']
+}))
 
 //Routes
 router.use('/user', user_router)
 router.use('/task', task_router)
-router.get('/test/email/:email', async (req, res) => {
-  await accountCreated(req.params.email, "dads", "gggg")
-  res.send("EMAIL SENT")
-})
 
 //error handler
 router.use((err: any, _req: Request, res: Response, _next:NextFunction) => {

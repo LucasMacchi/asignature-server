@@ -21,7 +21,8 @@ export interface IUser {
     username: string,
     email: string,
     createdAt: Date,
-    user_id: string
+    user_id: string,
+    jwt?: string
 }
 export interface IAsignature_add{
     title: string,
@@ -33,4 +34,10 @@ export interface IAsignature_add{
     day: number,
     isCheck: boolean,
     id: string
+}
+export interface Ijwt{
+    user_id: string,
+    email: string,
+    iat: number,
+    exp: number
 }
