@@ -8,7 +8,7 @@ import test_route from './Routes/Utils/test_route';
 import { router } from './Routes';
 //Server creation
 dotenv.config()
-const port: number = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT) : 0;
+const port: number = process.env.PORT ? parseInt(process.env.PORT) : 0;
 const server = express();
 
 
