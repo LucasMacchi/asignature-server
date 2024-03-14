@@ -22,25 +22,35 @@ task_router.get('/error', (_req, res) => res.send(errorTest()))
 //Routes
 task_router.get('/all/:id',JWTAuth, async (req, res) => {
     const user_id = req.params.id
-    res.json(await allTasks(user_id))
+    const response = await allTasks(user_id)
+    response ? res.send(response) : res.status(401).send(response)
+
 })
 task_router.delete('/delete',JWTAuth, async (req, res) => {
     const {task_id,user_id} = req.body
-    res.send(await deleteTask(task_id,user_id))
+    const response = await deleteTask(task_id,user_id)
+    response ? res.send(response) : res.status(401).send(response)
 })
 task_router.patch('/done',JWTAuth, async (req, res) => {
     const {task_id,user_id} = req.body
-    res.send(await doneTask(task_id, user_id))
+    const response = await doneTask(task_id, user_id)
+    response ? res.send(response) : res.status(401).send(response)
+
 })
 task_router.patch('/undone',JWTAuth, async (req,res) => {
     const {task_id,user_id} = req.body
-    res.send(await unDoneTask(task_id, user_id))
+    const response = await unDoneTask(task_id, user_id)
+    response ? res.send(response) : res.status(401).send(response)
+
 })
 task_router.patch('/expire',JWTAuth, async (req, res) => {
     const {task_id,user_id} = req.body
-    res.send(await expireTask(task_id, user_id))
+    const response = await expireTask(task_id, user_id)
+    response ? res.send(response) : res.status(401).send(response)
 })
 task_router.post('/add',JWTAuth, async (req, res) => {
     const task = req.body
-    res.send(await addTask(task))
+    const response = await addTask(task)
+    response ? res.send(response) : res.status(401).send(response)
+
 })

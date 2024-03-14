@@ -8,7 +8,8 @@ export default async function deleteTask(id: string, user_id: string) {
         const user = await User.findById(user_id)
         if(task && user){
             const index = user.UserAsignatures.findIndex( t => t.id === id )
-            if(index){
+            console.log(index)
+            if(index !== null || index !== undefined){
                 await Asignature.findByIdAndDelete(id)
                 user.UserAsignatures.splice(index,1)
                 await user.save()
